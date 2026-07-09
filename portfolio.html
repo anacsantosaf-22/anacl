@@ -139,6 +139,9 @@ nav {
     font-size: 0.88rem;
     transition: all 0.2s ease;
     letter-spacing: 0.02em;
+    border: none;
+    cursor: pointer;
+    font-family: inherit;
 }
 
 .btn-primary {
@@ -225,6 +228,11 @@ section + section { border-top: 1px solid var(--border); }
     transition: all 0.3s ease;
     position: relative;
     overflow: hidden;
+    cursor: pointer;
+    text-align: left;
+    width: 100%;
+    font-family: inherit;
+    display: block;
 }
 
 .project-card::before {
@@ -254,8 +262,10 @@ section + section { border-top: 1px solid var(--border); }
     align-items: center;
     justify-content: center;
     margin-bottom: 1.2rem;
-    font-size: 1rem;
+    color: var(--accent);
 }
+
+.project-icon svg { width: 18px; height: 18px; }
 
 .project-title {
     font-size: 1.05rem;
@@ -276,6 +286,7 @@ section + section { border-top: 1px solid var(--border); }
     display: flex;
     flex-wrap: wrap;
     gap: 0.4rem;
+    margin-bottom: 1.2rem;
 }
 
 .tag {
@@ -287,6 +298,17 @@ section + section { border-top: 1px solid var(--border); }
     color: var(--accent);
     letter-spacing: 0.02em;
 }
+
+.project-link {
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: var(--accent);
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+}
+
+.project-card:hover .project-link { gap: 0.55rem; }
 
 /* ── SKILLS ── */
 .skills-grid {
@@ -356,6 +378,34 @@ section + section { border-top: 1px solid var(--border); }
     line-height: 1.85;
     font-size: 0.97rem;
     margin-bottom: 1rem;
+}
+
+.about-text ul {
+    margin: 1.2rem 0 1.4rem 0;
+    padding: 0;
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.65rem;
+}
+
+.about-text li {
+    color: rgba(255,255,255,0.78);
+    font-size: 0.92rem;
+    line-height: 1.6;
+    padding-left: 1.3rem;
+    position: relative;
+}
+
+.about-text li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0.55rem;
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: #5ab0d8;
 }
 
 .about-stats {
@@ -468,6 +518,166 @@ footer {
     .about-content { grid-template-columns: 1fr; gap: 2rem; }
     .about-stats { flex-direction: row; }
 }
+
+/* ══════════════════ MODAL (detalhes do projeto, na mesma página) ══════════════════ */
+
+.modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(13,27,42,0.55);
+    backdrop-filter: blur(3px);
+    display: none;
+    align-items: flex-start;
+    justify-content: center;
+    padding: 3.5rem 1.5rem;
+    overflow-y: auto;
+    z-index: 1000;
+}
+
+.modal-overlay.open { display: flex; }
+
+.modal-card {
+    background: var(--surface);
+    border-radius: 14px;
+    max-width: 760px;
+    width: 100%;
+    padding: 2.5rem;
+    position: relative;
+    animation: fadeUp 0.3s ease forwards;
+}
+
+.modal-close {
+    position: absolute;
+    top: 1.4rem;
+    right: 1.4rem;
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    border: 1px solid var(--border);
+    background: var(--bg);
+    color: var(--secondary);
+    font-size: 1rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+}
+
+.modal-close:hover { background: var(--primary); color: white; border-color: var(--primary); }
+
+.modal-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.9rem;
+    line-height: 1.2;
+    color: var(--primary);
+    margin: 0.3rem 3rem 0.8rem 0;
+}
+
+.modal-subtitle {
+    color: var(--secondary);
+    font-size: 0.95rem;
+    line-height: 1.7;
+    margin-bottom: 1rem;
+}
+
+.modal-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    margin-bottom: 1.8rem;
+}
+
+.modal-block { margin-bottom: 1.8rem; }
+.modal-block:last-child { margin-bottom: 0; }
+
+.modal-block h4 {
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 0.7rem;
+}
+
+.modal-block p {
+    color: var(--secondary);
+    font-size: 0.9rem;
+    line-height: 1.75;
+    margin-bottom: 0.6rem;
+}
+
+.modal-block ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.55rem;
+}
+
+.modal-block li {
+    color: var(--secondary);
+    font-size: 0.88rem;
+    line-height: 1.6;
+    padding-left: 1.2rem;
+    position: relative;
+}
+
+.modal-block li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0.55rem;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--accent);
+}
+
+.modal-image {
+    width: 100%;
+    border-radius: 8px;
+    border: 1px solid var(--border);
+    margin-top: 0.6rem;
+    display: block;
+}
+
+.classification-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 0.6rem 0 0.4rem;
+    font-size: 0.8rem;
+}
+
+.classification-table th,
+.classification-table td {
+    text-align: left;
+    padding: 0.6rem 0.6rem;
+    border-bottom: 1px solid var(--border);
+    vertical-align: top;
+    color: var(--secondary);
+}
+
+.classification-table th {
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--text-muted);
+    font-weight: 700;
+}
+
+.classification-table td:first-child {
+    color: var(--primary);
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+body.modal-active { overflow: hidden; }
+
+@media (max-width: 600px) {
+    .modal-card { padding: 1.6rem; }
+    .modal-title { font-size: 1.5rem; margin-right: 2.4rem; }
+    .classification-table { font-size: 0.74rem; }
+}
 </style>
 </head>
 <body>
@@ -489,8 +699,9 @@ footer {
         <div class="hero-label">Portfólio</div>
         <h1 class="hero-title">Engenharia<br><em>Elétrica</em></h1>
         <p class="hero-subtitle">
-            Estudante de Engenharia Elétrica com foco em análise de dados energéticos, 
-            planejamento técnico e desenvolvimento de dashboards estratégicos em Power BI.
+            Estagiária na área de planejamento energético, com foco em análise de dados
+            energéticos, transição energética e desenvolvimento de dashboards estratégicos
+            em Power BI.
         </p>
         <div class="hero-actions">
             <a href="#projetos" class="btn btn-primary">Ver Projetos</a>
@@ -498,18 +709,22 @@ footer {
         </div>
     </div>
     <div class="hero-badge">
+        <div class="hero-badge-number">03</div>
+        <div class="hero-badge-label">Projetos</div>
     </div>
 </section>
 
 <section id="projetos" class="container">
     <div class="section-header">
         <h2 class="section-title">Projetos</h2>
-        <span class="section-count">02</span>
+        <span class="section-count">03</span>
     </div>
     <div class="projects-grid">
 
-        <div class="project-card">
-            <div class="project-icon"></div>
+        <button class="project-card" onclick="openProject('p1')">
+            <div class="project-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 3 14h7l-1 8 10-12h-7z"/></svg>
+            </div>
             <h3 class="project-title">Estudo de Viabilidade de Expansão de Carga Elétrica</h3>
             <p class="project-description">
                 Análise técnica e operacional para expansão de carga em condomínio residencial,
@@ -520,10 +735,13 @@ footer {
                 <span class="tag">Excel</span>
                 <span class="tag">NBR 5410</span>
             </div>
-        </div>
+            <span class="project-link">Ver detalhes →</span>
+        </button>
 
-        <div class="project-card">
-            <div class="project-icon"></div>
+        <button class="project-card" onclick="openProject('p2')">
+            <div class="project-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><rect x="7" y="12" width="3" height="6"/><rect x="13" y="8" width="3" height="10"/><path d="M19 5v13"/></svg>
+            </div>
             <h3 class="project-title">Dashboard Energético – UnB</h3>
             <p class="project-description">
                 Monitoramento de consumo, custos e fator de potência com visualização estratégica.
@@ -533,7 +751,25 @@ footer {
                 <span class="tag">DAX</span>
                 <span class="tag">Gestão Energética</span>
             </div>
-        </div>
+            <span class="project-link">Ver detalhes →</span>
+        </button>
+
+        <button class="project-card" onclick="openProject('p3')">
+            <div class="project-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19h16"/><path d="M8 19v-6"/><path d="M13 19V7"/><path d="M18 19v-10"/></svg>
+            </div>
+            <h3 class="project-title">Painel de Análise das Contribuições – Consulta Pública do PLANTE</h3>
+            <p class="project-description">
+                Sistema de classificação e painel de acompanhamento das contribuições recebidas
+                na Consulta Pública do Plano Nacional de Transição Energética (PLANTE).
+            </p>
+            <div class="project-tags">
+                <span class="tag">Power BI</span>
+                <span class="tag">Metodologia</span>
+                <span class="tag">Transição Energética</span>
+            </div>
+            <span class="project-link">Ver detalhes →</span>
+        </button>
 
     </div>
 </section>
@@ -559,6 +795,14 @@ footer {
                 <span class="skill-item">Normas Técnicas</span>
             </div>
         </div>
+        <div class="skill-category">
+            <h3>Planejamento Energético</h3>
+            <div class="skill-list">
+                <span class="skill-item">Transição Energética</span>
+                <span class="skill-item">Análise de Políticas Públicas</span>
+                <span class="skill-item">Metodologia de Classificação</span>
+            </div>
+        </div>
     </div>
 </section>
 
@@ -570,12 +814,25 @@ footer {
         <div class="about-content">
             <div class="about-text">
                 <p>
-                    Sou estudante de Engenharia Elétrica com foco em análise de dados energéticos 
-                    e planejamento técnico. Conecto fundamentos da engenharia com inteligência 
-                    analítica para apoiar decisões estratégicas.
+                    Sou estudante de Engenharia Elétrica e atualmente estagiária na área de
+                    planejamento energético, atuando no apoio à análise de planos e estudos
+                    energéticos e contribuindo para iniciativas relacionadas à transição
+                    energética e ao planejamento do setor energético brasileiro.
                 </p>
                 <p>
-                    Tenho experiência com ferramentas de visualização de dados e normas técnicas 
+                    No estágio, desenvolvo suporte técnico à Coordenação-Geral de Eficiência
+                    Energética, além de acompanhar e apoiar o secretariado de comitês
+                    coordenados pela área:
+                </p>
+                <ul>
+                    <li>Apoio à análise de planos e estudos energéticos</li>
+                    <li>Suporte a iniciativas internacionais da área</li>
+                    <li>Apoio à Coordenação-Geral de Eficiência Energética</li>
+                    <li>Suporte ao secretariado de comitês coordenados pela área</li>
+                    <li>Participação em estudos integrados e planejamento energético</li>
+                </ul>
+                <p>
+                    Tenho experiência com ferramentas de visualização de dados e normas técnicas
                     do setor elétrico, buscando sempre unir rigor técnico com clareza analítica.
                 </p>
             </div>
@@ -620,6 +877,109 @@ footer {
         LinkedIn →
     </a>
 </footer>
+
+<!-- ══════════════════ MODAL ══════════════════ -->
+<div class="modal-overlay" id="modalOverlay" onclick="if(event.target===this) closeProject()">
+    <div class="modal-card">
+        <button class="modal-close" onclick="closeProject()" aria-label="Fechar">✕</button>
+        <div id="modalContent"></div>
+    </div>
+</div>
+
+<script>
+const projects = {
+    p1: {
+        title: "Estudo de Viabilidade de Expansão de Carga Elétrica",
+        subtitle: "Análise técnica e operacional para expansão de carga em um condomínio residencial, considerando a chegada da mobilidade elétrica e as exigências das normas técnicas vigentes.",
+        tags: ["Power BI", "Excel", "NBR 5410"],
+        blocks: [
+            { h: "O desafio", p: "Com o crescimento da frota de veículos elétricos, condomínios residenciais passam a demandar mais carga do que a infraestrutura elétrica original foi dimensionada para suportar. O projeto avaliou a viabilidade técnica de expandir essa carga, verificando limites de demanda, dimensionamento de circuitos e conformidade com as normas técnicas do setor elétrico." },
+            { h: "Minha participação", list: [
+                "Levantamento e organização dos dados de consumo e demanda do condomínio",
+                "Análise técnica da capacidade elétrica instalada frente à nova demanda projetada",
+                "Verificação de conformidade com a NBR 5410 para o dimensionamento proposto",
+                "Estruturação das planilhas de apoio e do material de apresentação dos resultados"
+            ]},
+            { h: "Ferramentas", p: "Excel para modelagem e cálculo de carga, e Power BI para consolidar e apresentar os cenários de expansão de forma visual." }
+        ]
+    },
+    p2: {
+        title: "Dashboard Energético – UnB",
+        subtitle: "Painel de monitoramento de consumo, custos e fator de potência para apoiar a gestão energética da universidade com visualização estratégica.",
+        tags: ["Power BI", "DAX", "Gestão Energética"],
+        blocks: [
+            { h: "O desafio", p: "A gestão de energia de um campus universitário envolve acompanhar consumo, custos e qualidade de energia (como o fator de potência) em diferentes pontos de medição. Sem um painel centralizado, essas informações ficavam dispersas e dificultavam decisões rápidas sobre eficiência energética." },
+            { h: "Minha participação", list: [
+                "Modelagem dos dados de consumo, custo e fator de potência no Power BI",
+                "Criação de medidas em DAX para os principais indicadores de gestão energética",
+                "Desenho da visualização estratégica do painel, priorizando leitura rápida dos indicadores"
+            ]},
+            { h: "Ferramentas", p: "Power BI como plataforma de visualização e DAX para o cálculo dos indicadores de consumo, custo e fator de potência." }
+        ]
+    },
+    p3: {
+        title: "Painel de Análise das Contribuições – Consulta Pública do PLANTE",
+        subtitle: "Sistema de classificação e painel de acompanhamento desenvolvido para analisar as contribuições recebidas na Consulta Pública do Plano Nacional de Transição Energética (PLANTE).",
+        tags: ["Power BI", "Metodologia de Classificação", "Transição Energética"],
+        blocks: [
+            { h: "O desafio", p: "A Consulta Pública do PLANTE recebeu um grande volume de contribuições de diferentes tipos de representantes — setor público, setor privado, instituições de ensino, sociedade civil e conselhos de consumidores — sobre os pilares, capítulos e ações do plano. Era preciso organizar esse volume de forma consistente para permitir uma análise objetiva e comparável de cada contribuição." },
+            { h: "Minha participação", p: "Fui responsável por criar do zero o sistema utilizado para analisar as contribuições recebidas, incluindo a metodologia de classificação e o painel de acompanhamento da consulta.", list: [
+                "Criação do sistema de análise das contribuições recebidas na consulta",
+                "Desenvolvimento das categorias de classificação, com definição operacional e sinais textuais para cada tipo de contribuição",
+                "Construção do painel de acompanhamento da Análise da Consulta Pública no Power BI"
+            ]},
+            { h: "Metodologia de classificação", table: {
+                head: ["Categoria", "Definição operacional", "Exemplo"],
+                rows: [
+                    ["Demanda normativo-regulatória", "Pede um mandato vinculante (proibição, cota, exigência compulsória, prazo, decreto) que obriga terceiros por comando.", "\u201cVedar a exportação de terras raras in natura…\u201d"],
+                    ["Reposicionamento estratégico", "Tenta mudar a postura ou prioridade do plano: remover um tema, reverter posição, reordenar prioridades.", "\u201cRetirar todo este item: Angra 3\u201d"],
+                    ["Indicadores / monitoramento", "Propõe métricas ou indicadores de acompanhamento, sem alterar a substância da ação.", "Intensidade de carbono média do SAF por rota"],
+                    ["Nova iniciativa / mecanismo", "Cria instrumento, iniciativa, programa ou arranjo de governança novo.", "Iniciativa de estabilização de receita (CfD) para SAF"],
+                    ["Ajuste técnico-conceitual", "Acrescenta ou refina um elemento técnico dentro de uma ação já existente, sem criar instrumento novo.", "\u201cIncluir a biomassa entre as fontes dos leilões\u201d"],
+                    ["Editorial-explicativa", "Reescreve o nome/título da ação ou bloco para \u201csubir\u201d conteúdo já presente no corpo.", "Nome do bloco reproduzido como linha de ação"]
+                ]
+            }},
+            { h: "O painel", p: "O painel consolida as contribuições por bloco, pilar, capítulo, linha de ação, tipo de contribuição e tipo de representante, além de uma nuvem de palavras com os termos mais recorrentes — atualizado automaticamente a partir das abas de análise.", image: "plante-dashboard.png" }
+        ]
+    }
+};
+
+function renderBlock(b) {
+    let html = `<div class="modal-block"><h4>${b.h}</h4>`;
+    if (b.p) html += `<p>${b.p}</p>`;
+    if (b.list) html += `<ul>${b.list.map(i => `<li>${i}</li>`).join('')}</ul>`;
+    if (b.table) {
+        html += `<table class="classification-table"><thead><tr>${b.table.head.map(h => `<th>${h}</th>`).join('')}</tr></thead><tbody>`;
+        html += b.table.rows.map(r => `<tr>${r.map(c => `<td>${c}</td>`).join('')}</tr>`).join('');
+        html += `</tbody></table>`;
+    }
+    if (b.image) html += `<img src="${b.image}" alt="${b.h}" class="modal-image">`;
+    html += `</div>`;
+    return html;
+}
+
+function openProject(id) {
+    const proj = projects[id];
+    const content = document.getElementById('modalContent');
+    content.innerHTML = `
+        <h3 class="modal-title">${proj.title}</h3>
+        <p class="modal-subtitle">${proj.subtitle}</p>
+        <div class="modal-tags">${proj.tags.map(t => `<span class="tag">${t}</span>`).join('')}</div>
+        ${proj.blocks.map(renderBlock).join('')}
+    `;
+    document.getElementById('modalOverlay').classList.add('open');
+    document.body.classList.add('modal-active');
+}
+
+function closeProject() {
+    document.getElementById('modalOverlay').classList.remove('open');
+    document.body.classList.remove('modal-active');
+}
+
+document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') closeProject();
+});
+</script>
 
 </body>
 </html>
